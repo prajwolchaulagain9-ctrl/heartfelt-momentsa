@@ -16,15 +16,17 @@ const FloatingHearts = () => {
 
   useEffect(() => {
     const generateHearts = () => {
+      const isMobile = window.innerWidth < 640;
+      const count = isMobile ? 12 : 22;
       const newHearts: HeartParticle[] = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < count; i++) {
         newHearts.push({
           id: i,
           x: Math.random() * 100,
           delay: Math.random() * 8,
-          duration: 6 + Math.random() * 6,
-          size: 12 + Math.random() * 24,
-          opacity: 0.3 + Math.random() * 0.5,
+          duration: 7 + Math.random() * 7,
+          size: isMobile ? 10 + Math.random() * 18 : 12 + Math.random() * 24,
+          opacity: 0.25 + Math.random() * 0.45,
         });
       }
       setHearts(newHearts);
@@ -43,15 +45,15 @@ const FloatingHearts = () => {
             bottom: "-50px",
           }}
           animate={{
-            y: [0, -window.innerHeight - 100],
-            x: [0, Math.sin(heart.id) * 50],
-            rotate: [0, 360],
+            y: [0, -window.innerHeight - 120],
+            x: [0, Math.sin(heart.id * 0.6) * 50],
+            rotate: [0, 240, 360],
           }}
           transition={{
             duration: heart.duration,
             delay: heart.delay,
             repeat: Infinity,
-            ease: "linear",
+            ease: "easeInOut",
           }}
         >
           <Heart

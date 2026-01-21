@@ -111,6 +111,17 @@
 }
 
 @layer utilities {
+  /* Typographic scale utilities for consistent hierarchy */
+  .type-display { @apply text-4xl sm:text-5xl md:text-6xl font-serif font-bold leading-tight; }
+  .type-title { @apply text-3xl sm:text-4xl font-serif font-bold leading-tight; }
+  .type-subtitle { @apply text-sm sm:text-base font-medium; }
+  .type-body { @apply text-base sm:text-lg; }
+  .type-small { @apply text-xs sm:text-sm; }
+
+  /* Section rhythm utilities */
+  .section { @apply py-12 sm:py-16; }
+  .section-sm { @apply py-8 sm:py-12; }
+
   .text-gradient-romantic {
     background: var(--gradient-romantic);
     -webkit-background-clip: text;
@@ -133,6 +144,9 @@
   .shadow-glow {
     box-shadow: var(--shadow-glow);
   }
+
+  /* Subtle card elevation */
+  .card-glass { @apply rounded-3xl border border-white/50 bg-white/40 backdrop-blur-xl shadow-romantic; }
 
   .animate-float {
     animation: float 6s ease-in-out infinite;
