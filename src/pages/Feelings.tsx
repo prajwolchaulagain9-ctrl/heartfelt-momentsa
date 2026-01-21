@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Heart, Quote, ArrowRight } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
+import { Button } from "@/components/ui/button";
 
 const Feelings = () => {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ const Feelings = () => {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="text-center z-10 max-w-3xl">
+      <div className="text-center z-10 w-full">
+        <div className="container max-w-3xl mx-auto py-12 sm:py-16">
         {/* Quote icon */}
         <motion.div
           initial={{ opacity: 0, scale: 0 }}
@@ -33,7 +35,7 @@ const Feelings = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-2xl md:text-4xl lg:text-5xl font-serif italic text-foreground leading-relaxed mb-8"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif italic text-foreground leading-relaxed mb-6"
         >
           In a world full of temporary things,{" "}
           <motion.span 
@@ -51,7 +53,7 @@ const Feelings = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8, duration: 0.8 }}
-          className="text-xl md:text-2xl font-serif text-foreground mb-4"
+          className="text-lg md:text-xl font-serif text-foreground mb-4"
         >
           My heart knew you before my eyes ever saw you.
         </motion.p>
@@ -76,29 +78,30 @@ const Feelings = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 3, duration: 0.8 }}
-          className="text-lg text-muted-foreground mb-8"
+          className="text-sm sm:text-base text-muted-foreground mb-8"
         >
           And now, there's something I've been meaning to ask you...
         </motion.p>
 
         {/* Continue button */}
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 3.5, duration: 0.5 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/question")}
-          className="inline-flex items-center gap-3 px-10 py-4 bg-gradient-romantic text-primary-foreground rounded-full text-lg font-semibold shadow-romantic hover:shadow-glow transition-all duration-300"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
-          I'm Ready
-          <motion.span
-            animate={{ x: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ArrowRight className="w-5 h-5" />
-          </motion.span>
-        </motion.button>
+          <Button variant="romantic" size="xl" onClick={() => navigate("/question")}>
+            I'm Ready
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ArrowRight className="w-5 h-5" />
+            </motion.span>
+          </Button>
+        </motion.div>
+        </div>
       </div>
     </main>
   );

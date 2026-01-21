@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Heart, Sparkles, Star } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
+import { Button } from "@/components/ui/button";
 
 const reasons = [
   {
@@ -59,7 +60,8 @@ const Reasons = () => {
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
 
-      <div className="text-center z-10 max-w-xl">
+      <div className="text-center z-10 w-full">
+        <div className="container max-w-xl mx-auto py-12 sm:py-16">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -79,7 +81,7 @@ const Reasons = () => {
 
             {/* Title */}
             <motion.h2
-              className="text-4xl md:text-5xl font-serif font-bold text-gradient-romantic mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gradient-romantic mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -89,7 +91,7 @@ const Reasons = () => {
 
             {/* Text */}
             <motion.p
-              className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10"
+              className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -120,21 +122,12 @@ const Reasons = () => {
               And finally... can I ask you something?
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button
-                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-romantic text-white font-semibold shadow-lg shadow-rose-500/40 hover:scale-105 transition-transform"
-                onClick={() => navigate("/question")}
-              >
-                Yes
-              </button>
-              <button
-                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-rose-100 text-rose-700 font-semibold border border-rose-200 hover:scale-105 transition-transform"
-                onClick={() => navigate("/question")}
-              >
-                Definitely yes
-              </button>
+              <Button variant="romantic" size="lg" onClick={() => navigate("/question")}>Yes</Button>
+              <Button variant="secondary" size="lg" onClick={() => navigate("/question")}>Definitely yes</Button>
             </div>
           </motion.div>
         )}
+        </div>
       </div>
     </main>
   );

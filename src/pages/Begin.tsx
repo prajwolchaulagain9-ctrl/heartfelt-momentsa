@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
+import { Button } from "@/components/ui/button";
 
 const messages = [
   "Every moment with you feels like magic...",
@@ -44,7 +45,8 @@ const Begin = () => {
         ))}
       </div>
 
-      <div className="text-center z-10 max-w-2xl">
+      <div className="text-center z-10 w-full">
+        <div className="container max-w-2xl mx-auto py-12 sm:py-16">
         {/* Messages appearing one by one */}
         <div className="space-y-6 mb-12">
           {messages.map((message, index) => (
@@ -78,34 +80,35 @@ const Begin = () => {
           <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary" />
         </motion.div>
 
-        {/* Continue text */}
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 4.2, duration: 0.8 }}
-          className="text-muted-foreground mb-8 text-lg"
+          className="text-muted-foreground mb-8 text-sm sm:text-base"
         >
           Let me tell you why you're so special...
         </motion.p>
 
         {/* Continue button */}
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 4.5, duration: 0.5 }}
-          whileHover={{ scale: 1.05, x: 5 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/reasons")}
-          className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-romantic text-primary-foreground rounded-full text-lg font-semibold shadow-romantic hover:shadow-glow transition-all duration-300"
+          whileHover={{ scale: 1.02, x: 4 }}
+          whileTap={{ scale: 0.97 }}
         >
-          Continue
-          <motion.span
-            animate={{ x: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ArrowRight className="w-5 h-5" />
-          </motion.span>
-        </motion.button>
+          <Button variant="romantic" size="xl" onClick={() => navigate("/reasons")}>
+            Continue
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ArrowRight className="w-5 h-5" />
+            </motion.span>
+          </Button>
+        </motion.div>
+        </div>
       </div>
     </main>
   );

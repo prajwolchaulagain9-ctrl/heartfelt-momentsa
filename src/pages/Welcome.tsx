@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import FloatingHearts from "@/components/FloatingHearts";
+import { Button } from "@/components/ui/button";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ const Welcome = () => {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="text-center z-10 max-w-lg">
+      <div className="text-center z-10 w-full">
+        <div className="container max-w-xl mx-auto py-12 sm:py-16">
         {/* Envelope animation */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
@@ -50,48 +52,52 @@ const Welcome = () => {
           </motion.div>
         </motion.div>
 
-        {/* Title */}
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-lg text-muted-foreground mb-4 font-medium"
+          className="text-base sm:text-lg text-muted-foreground mb-3 font-medium"
         >
-          You have a special message...
+          A gentle, romantic journey crafted just for you.
         </motion.p>
 
+        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-4xl md:text-6xl font-serif font-bold text-gradient-romantic mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-gradient-romantic mb-4 leading-tight"
         >
-          Someone Wants to
-          <br />
-          <span className="italic">Tell You Something</span>
+          A Heartfelt Moment Awaits
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="text-muted-foreground mb-10 text-lg"
+          className="text-muted-foreground mb-8 text-sm sm:text-base"
         >
-          Take a moment, breathe, and when you're ready...
+          Take a breath, and when you’re ready—open your heart.
         </motion.p>
 
         {/* CTA Button */}
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.5, duration: 0.5 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/begin")}
-          className="px-10 py-4 bg-gradient-romantic text-primary-foreground rounded-full text-lg font-semibold shadow-romantic hover:shadow-glow transition-all duration-300"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
-          Open Your Heart 💕
-        </motion.button>
+          <Button
+            variant="romantic"
+            size="xl"
+            onClick={() => navigate("/begin")}
+          >
+            Begin the Moment 💕
+          </Button>
+        </motion.div>
+        </div>
       </div>
     </main>
   );

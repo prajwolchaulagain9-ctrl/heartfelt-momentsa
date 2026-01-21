@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Heart, Sparkles, PartyPopper } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import CelebrationEffect from "@/components/CelebrationEffect";
+import { Button } from "@/components/ui/button";
 
 const Question = () => {
   const navigate = useNavigate();
@@ -107,7 +108,8 @@ const Question = () => {
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="text-center z-10 max-w-2xl">
+      <div className="text-center z-10 w-full">
+        <div className="container max-w-2xl mx-auto py-12 sm:py-16">
         <AnimatePresence mode="wait">
           {!gameComplete ? (
             <motion.div
@@ -125,8 +127,8 @@ const Question = () => {
                 className="space-y-3"
               >
                 <p className="uppercase tracking-[0.2em] text-sm text-muted-foreground">Warm-up game</p>
-                <h1 className="text-4xl md:text-6xl font-serif font-bold text-gradient-romantic">Catch the Hearts</h1>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Collect {targetScore} hearts to unlock the big question. Hearts get faster and roam wider the more you catch—stay sharp!</p>
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif font-bold text-gradient-romantic">Catch the Hearts</h1>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">Collect {targetScore} hearts to unlock the big question. Hearts get faster and roam wider the more you catch—stay sharp!</p>
               </motion.div>
 
               <div className="w-full max-w-3xl mx-auto space-y-4">
@@ -139,12 +141,9 @@ const Question = () => {
                   {!gameStarted && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/10 backdrop-blur-sm">
                       <p className="text-muted-foreground">Catch the moving hearts to prove your love prowess.</p>
-                      <button
-                        onClick={handleStartGame}
-                        className="px-6 py-3 bg-gradient-romantic text-primary-foreground rounded-full font-semibold shadow-romantic"
-                      >
+                      <Button variant="romantic" size="lg" onClick={handleStartGame}>
                         Start mini-game
-                      </button>
+                      </Button>
                     </div>
                   )}
 
@@ -324,11 +323,7 @@ const Question = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
-                <motion.button
-                  onClick={handleYes}
-                  className="px-12 py-5 bg-gradient-romantic text-primary-foreground rounded-full text-xl font-bold shadow-romantic hover:shadow-glow transition-all duration-300"
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
                   animate={{ 
                     boxShadow: [
                       "0 10px 40px -10px hsl(350 80% 55% / 0.3)",
@@ -338,8 +333,8 @@ const Question = () => {
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  Yes! 💕
-                </motion.button>
+                  <Button variant="romantic" size="xl" onClick={handleYes}>Yes! 💕</Button>
+                </motion.div>
 
                 <motion.button
                   className="px-8 py-3 bg-secondary text-secondary-foreground rounded-full text-lg font-medium"
@@ -431,6 +426,7 @@ const Question = () => {
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
       </div>
     </main>
   );
