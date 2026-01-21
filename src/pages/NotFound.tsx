@@ -1,5 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   const location = useLocation();
@@ -9,15 +11,19 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
+    <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4">
+      <div className="text-center w-full">
+        <div className="container max-w-md mx-auto py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <h1 className="text-5xl font-serif font-bold text-gradient-romantic mb-3">Lost in Love</h1>
+            <p className="text-sm sm:text-base text-muted-foreground mb-8">That page doesn’t exist. Let’s guide you back home.</p>
+            <Button asChild variant="romantic" size="lg">
+              <a href="/">Return to Home</a>
+            </Button>
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
