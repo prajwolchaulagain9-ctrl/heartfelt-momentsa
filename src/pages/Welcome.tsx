@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Heart, Sparkles, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import FloatingHearts from "@/components/FloatingHearts";
+import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
 import { Button } from "@/components/ui/button";
 
 const Welcome = () => {
@@ -45,6 +46,12 @@ const Welcome = () => {
   return (
     <>
       <FloatingHearts />
+      <RomanticGifBackdrop
+        src="https://media.giphy.com/media/26tPplGWjN0xLybiU/giphy.gif"
+        opacity={0.28}
+        blur={2}
+        overlayColor="linear-gradient(180deg, rgba(255,192,203,0.35), rgba(255,255,255,0.2))"
+      />
       <div className="min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden">
         {/* Background gradient animation */}
         <motion.div

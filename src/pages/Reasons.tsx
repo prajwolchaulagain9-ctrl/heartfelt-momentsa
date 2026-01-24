@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Heart, Sparkles, Star } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
+import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
 import { Button } from "@/components/ui/button";
 
 const reasons = [
@@ -59,6 +60,12 @@ const Reasons = () => {
   return (
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
+      <RomanticGifBackdrop
+        src="https://media.giphy.com/media/OkJat1YNdoD3W/giphy.gif"
+        opacity={0.22}
+        blur={1}
+        overlayColor="linear-gradient(160deg, rgba(255,200,210,0.35), rgba(255,240,230,0.2))"
+      />
 
       <div className="text-center z-10 w-full">
         <div className="container max-w-xl mx-auto py-12 sm:py-16">

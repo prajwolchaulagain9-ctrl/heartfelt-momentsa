@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
+import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
 import { Button } from "@/components/ui/button";
 
 const messages = [
@@ -16,6 +17,12 @@ const Begin = () => {
   return (
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
+      <RomanticGifBackdrop
+        src="https://media.giphy.com/media/jNJW9Bj6vVXIERUgK3/giphy.gif"
+        opacity={0.24}
+        blur={1}
+        overlayColor="linear-gradient(120deg, rgba(255,192,203,0.22), rgba(255,255,255,0.12))"
+      />
 
       {/* Animated background sparkles */}
       <div className="absolute inset-0 pointer-events-none">

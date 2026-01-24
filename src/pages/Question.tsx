@@ -5,6 +5,7 @@ import { Heart, Sparkles, PartyPopper } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import CelebrationEffect from "@/components/CelebrationEffect";
 import PhotoShowcase from "@/components/PhotoShowcase";
+import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
 import { Button } from "@/components/ui/button";
 
 const Question = () => {
@@ -94,6 +95,12 @@ const Question = () => {
   return (
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
+      <RomanticGifBackdrop
+        src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+        opacity={0.26}
+        blur={2}
+        overlayColor="linear-gradient(200deg, rgba(255,205,215,0.3), rgba(255,240,235,0.18))"
+      />
       
       {/* Show confetti when answer is yes */}
       {answer === "yes" && <CelebrationEffect />}
