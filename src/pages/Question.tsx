@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Heart, Sparkles, PartyPopper } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import CelebrationEffect from "@/components/CelebrationEffect";
+import PhotoShowcase from "@/components/PhotoShowcase";
 import { Button } from "@/components/ui/button";
 
 const Question = () => {
@@ -13,6 +14,7 @@ const Question = () => {
   const [noAttempts, setNoAttempts] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameComplete, setGameComplete] = useState(false);
+  const [showPhotoShowcase, setShowPhotoShowcase] = useState(false);
   const [score, setScore] = useState(0);
   const [heartPosition, setHeartPosition] = useState({ x: 0, y: 0 });
   const [showMiniCongrats, setShowMiniCongrats] = useState(false);
@@ -22,13 +24,13 @@ const Question = () => {
 
   const noMessages = [
     "No...",
+    "Wait, hear me out",
     "Are you sure?",
-    "Really?",
     "Think again!",
     "Please? 🥺",
     "Pretty please?",
     "I'll be sad...",
-    "💔",
+    "💕 one more try",
   ];
 
   const shuffleHeart = () => {
@@ -70,6 +72,7 @@ const Question = () => {
   };
 
   const handleProceedToQuestion = () => {
+    setShowPhotoShowcase(true);
     setShowMiniCongrats(false);
   };
 
@@ -111,7 +114,9 @@ const Question = () => {
       <div className="text-center z-10 w-full">
         <div className="container max-w-2xl mx-auto py-12 sm:py-16">
         <AnimatePresence mode="wait">
-          {!gameComplete ? (
+          {showPhotoShowcase ? (
+            <PhotoShowcase onComplete={() => setShowPhotoShowcase(false)} />
+          ) : !gameComplete ? (
             <motion.div
               key="game"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -126,9 +131,9 @@ const Question = () => {
                 transition={{ delay: 0.2 }}
                 className="space-y-3"
               >
-                <p className="uppercase tracking-[0.2em] text-sm text-muted-foreground">Warm-up game</p>
+                <p className="uppercase tracking-[0.2em] text-sm text-muted-foreground">Tiny warm-up</p>
                 <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif font-bold text-gradient-romantic">Catch the Hearts</h1>
-                <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">Collect {targetScore} hearts to unlock the big question. Hearts get faster and roam wider the more you catch—stay sharp!</p>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">Gather {targetScore} glowing hearts to unlock the next surprise. The closer you get, the quicker they dance away.</p>
               </motion.div>
 
               <div className="w-full max-w-3xl mx-auto space-y-4">
@@ -140,7 +145,7 @@ const Question = () => {
                 <div className="relative h-64 rounded-3xl border border-white/50 bg-white/10 backdrop-blur-xl overflow-hidden shadow-romantic">
                   {!gameStarted && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/10 backdrop-blur-sm">
-                      <p className="text-muted-foreground">Catch the moving hearts to prove your love prowess.</p>
+                      <p className="text-muted-foreground">Chase the playful heart and show it you’re here for every beat.</p>
                       <Button variant="romantic" size="lg" onClick={handleStartGame}>
                         Start mini-game
                       </Button>
@@ -181,9 +186,9 @@ const Question = () => {
                   transition={{ delay: 0.4 }}
                 >
                   {score === 0 && "The heart is shy. Start the chase!"}
-                  {score > 0 && score < targetScore / 2 && "Getting warmer… they’re speeding up."}
-                  {score >= targetScore / 2 && score < targetScore && "Almost there! They won't stay still now."}
-                  {score >= targetScore && "Unlocked! The question awaits."}
+                  {score > 0 && score < targetScore / 2 && "You’re warming up—each catch brings you closer."}
+                  {score >= targetScore / 2 && score < targetScore && "Almost there. These hearts are fluttering for you."}
+                  {score >= targetScore && "Unlocked! A little surprise is waiting."}
                 </motion.div>
               </div>
             </motion.div>
@@ -223,8 +228,8 @@ const Question = () => {
                 transition={{ delay: 0.2, type: "spring", stiffness: 180, damping: 14 }}
                 className="space-y-4"
               >
-                <h2 className="text-5xl md:text-6xl font-serif font-bold text-gradient-romantic">Yay! You made it!</h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Your heart-catching skills are unmatched. Take a breath, then tap below to reveal the question waiting for you.</p>
+                <h2 className="text-5xl md:text-6xl font-serif font-bold text-gradient-romantic">You did it!</h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">You chased every heartbeat for me. Ready to see why I can’t stop admiring you?</p>
               </motion.div>
 
               <motion.div
@@ -239,7 +244,7 @@ const Question = () => {
                   whileHover={{ scale: 1.06 }}
                   whileTap={{ scale: 0.94 }}
                 >
-                  Ask me the question
+                  Show me how you see me
                 </motion.button>
               </motion.div>
 
@@ -313,7 +318,7 @@ const Question = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                I promise to cherish every moment with you... 💕
+                I promise to cherish every ordinary second and every sparkling moment with you. 💕
               </motion.p>
 
               {/* Buttons */}
