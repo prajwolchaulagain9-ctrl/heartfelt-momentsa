@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Heart, Sparkles, Star } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
+import ParticleField from "@/components/ParticleField";
+import InteractiveGlow from "@/components/InteractiveGlow";
+import CinematicLightRays from "@/components/CinematicLightRays";
 import { Button } from "@/components/ui/button";
 
 const reasons = [
@@ -60,6 +63,9 @@ const Reasons = () => {
   return (
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
+      <ParticleField />
+      <CinematicLightRays />
+      <InteractiveGlow color="rgba(255,200,210,0.4)" intensity={1.1} />
       <RomanticGifBackdrop
         src="https://media.giphy.com/media/OkJat1YNdoD3W/giphy.gif"
         opacity={0.22}

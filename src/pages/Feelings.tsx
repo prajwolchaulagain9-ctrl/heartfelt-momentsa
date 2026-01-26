@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Heart, Quote, ArrowRight } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
+import ParticleField from "@/components/ParticleField";
+import InteractiveGlow from "@/components/InteractiveGlow";
+import DepthOfFieldOverlay from "@/components/DepthOfFieldOverlay";
 import { Button } from "@/components/ui/button";
 
 const Feelings = () => {
@@ -11,6 +14,9 @@ const Feelings = () => {
   return (
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
+      <ParticleField />
+      <InteractiveGlow color="rgba(255,210,220,0.35)" intensity={1} />
+      <DepthOfFieldOverlay />
       <RomanticGifBackdrop
         src="https://media.giphy.com/media/3oz8xIsloV7zOmt81G/giphy.gif"
         opacity={0.24}

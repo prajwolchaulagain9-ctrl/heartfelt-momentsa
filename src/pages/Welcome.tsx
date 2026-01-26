@@ -3,6 +3,9 @@ import { Heart, Sparkles, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import FloatingHearts from "@/components/FloatingHearts";
 import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
+import CinematicLightRays from "@/components/CinematicLightRays";
+import ParticleField from "@/components/ParticleField";
+import InteractiveGlow from "@/components/InteractiveGlow";
 import { Button } from "@/components/ui/button";
 
 const Welcome = () => {
@@ -46,6 +49,9 @@ const Welcome = () => {
   return (
     <>
       <FloatingHearts />
+      <ParticleField />
+      <CinematicLightRays />
+      <InteractiveGlow color="rgba(255,192,203,0.3)" intensity={1} />
       <RomanticGifBackdrop
         src="https://media.giphy.com/media/26tPplGWjN0xLybiU/giphy.gif"
         opacity={0.28}

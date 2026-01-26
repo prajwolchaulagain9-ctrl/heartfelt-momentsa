@@ -6,6 +6,9 @@ import FloatingHearts from "@/components/FloatingHearts";
 import CelebrationEffect from "@/components/CelebrationEffect";
 import PhotoShowcase from "@/components/PhotoShowcase";
 import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
+import ParticleField from "@/components/ParticleField";
+import InteractiveGlow from "@/components/InteractiveGlow";
+import DepthOfFieldOverlay from "@/components/DepthOfFieldOverlay";
 import { Button } from "@/components/ui/button";
 
 const Question = () => {
@@ -32,6 +35,10 @@ const Question = () => {
     "Pretty please?",
     "I'll be sad...",
     "💕 one more try",
+    "Pookie please...",
+    "You're breaking my heart",
+    "One more chance!",
+    "Come on...",
   ];
 
   const shuffleHeart = () => {
@@ -79,8 +86,9 @@ const Question = () => {
 
   const handleNoHover = () => {
     setNoAttempts((prev) => Math.min(prev + 1, noMessages.length - 1));
-    const newX = (Math.random() - 0.5) * 250;
-    const newY = (Math.random() - 0.5) * 150;
+    const maxDistance = 200 + noAttempts * 30;
+    const newX = (Math.random() - 0.5) * maxDistance;
+    const newY = (Math.random() - 0.5) * maxDistance;
     setNoButtonPosition({ x: newX, y: newY });
   };
 
@@ -95,6 +103,9 @@ const Question = () => {
   return (
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
+      <ParticleField />
+      <InteractiveGlow color="rgba(255,192,203,0.4)" intensity={1.2} />
+      <DepthOfFieldOverlay />
       <RomanticGifBackdrop
         src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
         opacity={0.26}
@@ -335,26 +346,44 @@ const Question = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
+                <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}
                   animate={{ 
                     boxShadow: [
                       "0 10px 40px -10px hsl(350 80% 55% / 0.3)",
-                      "0 10px 60px -10px hsl(350 80% 55% / 0.5)",
+                      "0 20px 80px -10px hsl(350 80% 55% / 0.6)",
                       "0 10px 40px -10px hsl(350 80% 55% / 0.3)",
                     ]
                   }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                  transition={{ duration: 1.8, repeat: Infinity }}
                 >
                   <Button variant="romantic" size="xl" onClick={handleYes}>Yes! 💕</Button>
                 </motion.div>
 
                 <motion.button
-                  className="px-8 py-3 bg-secondary text-secondary-foreground rounded-full text-lg font-medium"
+                  className="px-8 py-3 bg-secondary text-secondary-foreground rounded-full text-lg font-medium relative transition-all hover:bg-secondary/80"
                   style={{ x: noButtonPosition.x, y: noButtonPosition.y }}
                   onMouseEnter={handleNoHover}
                   onTouchStart={handleNoHover}
-                  whileHover={{ scale: 0.85 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  whileHover={{ scale: 0.8, rotate: 5 }}
+                  whileTap={{ scale: 0.7 }}
+                  animate={{
+                    boxShadow: [
+                      "0 4px 15px rgba(0,0,0,0.1)",
+                      "0 6px 25px rgba(0,0,0,0.15)",
+                      "0 4px 15px rgba(0,0,0,0.1)",
+                    ]
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 600,
+                    damping: 20,
+                    mass: 0.5,
+                    boxShadow: {
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  }}
                 >
                   {noMessages[noAttempts]}
                 </motion.button>

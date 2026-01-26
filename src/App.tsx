@@ -10,6 +10,7 @@ import Feelings from "./pages/Feelings";
 import Question from "./pages/Question";
 import NotFound from "./pages/NotFound";
 import BackgroundMusic from "./components/BackgroundMusic";
+import CursorTrail from "./components/CursorTrail";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BackgroundMusic />
+      <CursorTrail />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome />} />

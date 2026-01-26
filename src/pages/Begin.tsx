@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
+import ParticleField from "@/components/ParticleField";
+import InteractiveGlow from "@/components/InteractiveGlow";
+import DepthOfFieldOverlay from "@/components/DepthOfFieldOverlay";
 import { Button } from "@/components/ui/button";
 
 const messages = [
@@ -17,6 +20,9 @@ const Begin = () => {
   return (
     <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
       <FloatingHearts />
+      <ParticleField />
+      <InteractiveGlow color="rgba(255,192,203,0.35)" intensity={1} />
+      <DepthOfFieldOverlay />
       <RomanticGifBackdrop
         src="https://media.giphy.com/media/jNJW9Bj6vVXIERUgK3/giphy.gif"
         opacity={0.24}
