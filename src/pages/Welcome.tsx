@@ -55,11 +55,11 @@ const Welcome = () => {
       <InteractiveGlow color="rgba(255,192,203,0.25)" intensity={0.85} />
       <RomanticGifBackdrop
         src="https://media.giphy.com/media/26tPplGWjN0xLybiU/giphy.gif"
-        opacity={0.28}
-        blur={2}
-        overlayColor="linear-gradient(180deg, rgba(255,192,203,0.35), rgba(255,255,255,0.2))"
+        opacity={0.75}
+        blur={0}
+        overlayColor="linear-gradient(180deg, rgba(255,192,203,0.1), rgba(255,255,255,0.05))"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-100/60 via-white/10 to-purple-100/40" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-100/30 via-white/5 to-purple-100/20" aria-hidden="true" />
 
       <div className="relative mx-auto flex min-h-screen max-w-5xl items-center px-4 py-12 sm:px-6 lg:px-10">
         {/* Background gradient animation */}

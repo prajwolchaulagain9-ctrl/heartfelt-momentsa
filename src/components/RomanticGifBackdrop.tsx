@@ -16,18 +16,19 @@ const RomanticGifBackdrop = ({
   className = "",
 }: RomanticGifBackdropProps) => (
   <motion.div
-    className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+    className={`pointer-events-none fixed inset-0 overflow-hidden z-0 ${className}`}
     initial={{ opacity: 0 }}
     animate={{ opacity }}
     transition={{ duration: 1.2, ease: "easeOut" }}
     aria-hidden
   >
     <motion.div
-      className="absolute inset-0"
+      className="absolute inset-0 w-full h-full"
       style={{
         backgroundImage: `url(${src})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundAttachment: "fixed",
         filter: blur ? `blur(${blur}px)` : undefined,
         mixBlendMode: "screen",
       }}
