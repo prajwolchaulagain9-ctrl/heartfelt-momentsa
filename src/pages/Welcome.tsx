@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Heart, Sparkles, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import FloatingHearts from "@/components/FloatingHearts";
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 const Welcome = () => {
   const navigate = useNavigate();
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -22,20 +22,20 @@ const Welcome = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8 },
     },
   };
 
-  const floatVariants = {
+  const floatVariants: Variants = {
     initial: { y: 0 },
     animate: {
       y: [-10, 10, -10],
-      transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+      transition: { duration: 3, repeat: Infinity },
     },
   };
 

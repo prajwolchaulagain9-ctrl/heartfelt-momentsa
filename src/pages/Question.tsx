@@ -5,6 +5,7 @@ import { Heart, Sparkles, PartyPopper } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import CelebrationEffect from "@/components/CelebrationEffect";
 import PhotoShowcase from "@/components/PhotoShowcase";
+import BulletHellGame from "@/components/BulletHellGame";
 import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
 import ParticleField from "@/components/ParticleField";
 import InteractiveGlow from "@/components/InteractiveGlow";
@@ -19,6 +20,7 @@ const Question = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameComplete, setGameComplete] = useState(false);
   const [showPhotoShowcase, setShowPhotoShowcase] = useState(false);
+  const [showBulletHell, setShowBulletHell] = useState(false);
   const [score, setScore] = useState(0);
   const [heartPosition, setHeartPosition] = useState({ x: 0, y: 0 });
   const [showMiniCongrats, setShowMiniCongrats] = useState(false);
@@ -84,6 +86,15 @@ const Question = () => {
     setShowMiniCongrats(false);
   };
 
+  const handlePhotoShowcaseComplete = () => {
+    setShowPhotoShowcase(false);
+    setShowBulletHell(true);
+  };
+
+  const handleBulletHellComplete = () => {
+    setShowBulletHell(false);
+  };
+
   const handleNoHover = () => {
     setNoAttempts((prev) => Math.min(prev + 1, noMessages.length - 1));
     const maxDistance = 200 + noAttempts * 30;
@@ -133,7 +144,9 @@ const Question = () => {
         <div className="container max-w-2xl mx-auto py-12 sm:py-16">
         <AnimatePresence mode="wait">
           {showPhotoShowcase ? (
-            <PhotoShowcase onComplete={() => setShowPhotoShowcase(false)} />
+            <PhotoShowcase onComplete={handlePhotoShowcaseComplete} />
+          ) : showBulletHell ? (
+            <BulletHellGame onComplete={handleBulletHellComplete} />
           ) : !gameComplete ? (
             <motion.div
               key="game"
