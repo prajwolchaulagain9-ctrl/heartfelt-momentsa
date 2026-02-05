@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface BulletHellGameProps {
   onComplete: () => void;
@@ -21,6 +22,7 @@ interface Projectile {
 }
 
 const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
+  const isMobile = useIsMobile();
   const [gameState, setGameState] = useState<"intro" | "playing" | "endgame" | "caught" | "failed">("intro");
   const [player, setPlayer] = useState<Player>({ x: 50, y: 50 });
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
@@ -36,15 +38,19 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
   const lastHitRef = useRef(0);
   const intenseAudioRef = useRef<HTMLAudioElement>(null);
   const softAudioRef = useRef<HTMLAudioElement>(null);
+  const lastFrameTimeRef = useRef(0);
 
   const GAME_WIDTH = 100; // percentage
   const GAME_HEIGHT = 100; // percentage
-  const PLAYER_SIZE = 2.6; // percentage
-  const PROJECTILE_SIZE = 2.7; // percentage
+  const PLAYER_SIZE = isMobile ? 3.2 : 2.6; // percentage
+  const PROJECTILE_SIZE = isMobile ? 2.4 : 2.7; // percentage
   const SURVIVAL_TIME = 15; // seconds
   const ENDGAME_DURATION_MS = 5000;
   const MAX_LIVES = 3;
-  const HIT_COOLDOWN_MS = 600;
+  const HIT_COOLDOWN_MS = isMobile ? 750 : 600;
+  const MAX_PROJECTILES = isMobile ? 18 : 36;
+  const BASE_SPAWN_INTERVAL_MS = isMobile ? 700 : 520;
+  const MIN_SPAWN_INTERVAL_MS = isMobile ? 260 : 180;
 
   // Sync refs with state
   useEffect(() => {
@@ -177,13 +183,19 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
         type,
       };
 
-      setProjectiles(prev => [...prev, newProjectile]);
+      setProjectiles(prev => {
+        const next = [...prev, newProjectile];
+        if (next.length > MAX_PROJECTILES) {
+          return next.slice(next.length - MAX_PROJECTILES);
+        }
+        return next;
+      });
     };
 
     // Increase spawn rate over time
     const getSpawnInterval = () => {
       const elapsed = SURVIVAL_TIME - timeLeft;
-      return Math.max(180, 520 - elapsed * 35); // Start at 520ms, decrease to 180ms
+      return Math.max(MIN_SPAWN_INTERVAL_MS, BASE_SPAWN_INTERVAL_MS - elapsed * 35);
     };
 
     const scheduleNextSpawn = () => {
@@ -200,7 +212,7 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
         clearTimeout(spawnIntervalRef.current);
       }
     };
-  }, [gameState, timeLeft]);
+  }, [gameState, timeLeft, MAX_PROJECTILES, BASE_SPAWN_INTERVAL_MS, MIN_SPAWN_INTERVAL_MS]);
 
   // Game loop
   useEffect(() => {
@@ -209,8 +221,20 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
     let animationFrameId: number;
     let hasTriggeredEnd = false;
 
+    lastFrameTimeRef.current = performance.now();
+
     const gameLoop = () => {
-      const speedMultiplier = 1;
+      const now = performance.now();
+      const frameDuration = isMobile ? 1000 / 30 : 1000 / 60;
+
+      if (now - lastFrameTimeRef.current < frameDuration) {
+        animationFrameId = requestAnimationFrame(gameLoop);
+        return;
+      }
+
+      const delta = Math.min((now - lastFrameTimeRef.current) / 16.67, 2);
+      lastFrameTimeRef.current = now;
+      const speedMultiplier = (isMobile ? 0.85 : 1) * delta;
 
       // Update player position smoothly
       setPlayer(prev => {
@@ -283,7 +307,7 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [gameState]);
+  }, [gameState, isMobile, HIT_COOLDOWN_MS]);
 
   // Timer: main survival countdown
   useEffect(() => {
@@ -416,7 +440,7 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
             {/* Game area */}
             <div
               ref={gameAreaRef}
-              className="relative w-full aspect-square max-w-2xl mx-auto rounded-3xl border-4 border-primary/30 bg-gradient-to-br from-pink-50/50 via-white/50 to-purple-50/50 backdrop-blur-sm overflow-hidden shadow-romantic cursor-none"
+              className="relative w-full aspect-square max-w-2xl mx-auto rounded-3xl border-4 border-primary/30 bg-gradient-to-br from-pink-50/50 via-white/50 to-purple-50/50 backdrop-blur-sm overflow-hidden shadow-romantic cursor-none touch-none"
               style={{
                 backgroundImage: `
                   repeating-linear-gradient(0deg, rgba(236, 72, 153, 0.03) 0px, transparent 2px, transparent 20px, rgba(236, 72, 153, 0.03) 22px),
@@ -466,7 +490,7 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
                   initial={{ scale: 0, rotate: 0 }}
                   animate={{ 
                     scale: 1,
-                    rotate: gameState === "endgame" ? 720 : 360,
+                    rotate: gameState === "endgame" ? 720 : isMobile ? 180 : 360,
                   }}
                   transition={{ 
                     scale: { duration: 0.2 },

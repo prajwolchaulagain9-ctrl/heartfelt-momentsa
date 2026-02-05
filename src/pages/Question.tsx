@@ -11,8 +11,10 @@ import ParticleField from "@/components/ParticleField";
 import InteractiveGlow from "@/components/InteractiveGlow";
 import DepthOfFieldOverlay from "@/components/DepthOfFieldOverlay";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Question = () => {
+  const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [answer, setAnswer] = useState<"yes" | null>(null);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
@@ -24,9 +26,9 @@ const Question = () => {
   const [score, setScore] = useState(0);
   const [heartPosition, setHeartPosition] = useState({ x: 0, y: 0 });
   const [showMiniCongrats, setShowMiniCongrats] = useState(false);
-  const targetScore = 10;
-  const baseShuffleInterval = 1100;
-  const minShuffleInterval = 550;
+  const targetScore = isMobile ? 7 : 10;
+  const baseShuffleInterval = isMobile ? 1400 : 1100;
+  const minShuffleInterval = isMobile ? 750 : 550;
 
   const noMessages = [
     "No...",
@@ -44,8 +46,10 @@ const Question = () => {
   ];
 
   const shuffleHeart = () => {
-    const newX = (Math.random() - 0.5) * 320;
-    const newY = (Math.random() - 0.5) * 180;
+    const maxX = isMobile ? 180 : 320;
+    const maxY = isMobile ? 120 : 180;
+    const newX = (Math.random() - 0.5) * maxX;
+    const newY = (Math.random() - 0.5) * maxY;
     setHeartPosition({ x: newX, y: newY });
   };
 
@@ -57,7 +61,7 @@ const Question = () => {
     );
     const interval = setInterval(shuffleHeart, intervalDuration);
     return () => clearInterval(interval);
-  }, [gameStarted, gameComplete, score]);
+  }, [gameStarted, gameComplete, score, baseShuffleInterval, minShuffleInterval]);
 
   const handleStartGame = () => {
     setScore(0);
@@ -173,7 +177,7 @@ const Question = () => {
                   <span>{gameStarted ? "Chase the heart!" : "Tap start to begin"}</span>
                 </div>
 
-                <div className="relative h-64 rounded-3xl border border-white/50 bg-white/10 backdrop-blur-xl overflow-hidden shadow-romantic">
+                <div className="relative h-64 rounded-3xl border border-white/50 bg-white/10 backdrop-blur-xl overflow-hidden shadow-romantic touch-none">
                   {!gameStarted && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/10 backdrop-blur-sm">
                       <p className="text-muted-foreground">Chase the playful heart and show it you’re here for every beat.</p>
@@ -185,7 +189,7 @@ const Question = () => {
 
                   {gameStarted && !gameComplete && (
                     <motion.button
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full p-3 shadow-glow"
+                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full p-4 sm:p-3 shadow-glow"
                       onClick={handleHeartCatch}
                       animate={{
                         x: heartPosition.x,
@@ -196,7 +200,7 @@ const Question = () => {
                       transition={{ type: "spring", stiffness: 260, damping: 16 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <Heart className="w-8 h-8 fill-primary-foreground" />
+                      <Heart className="w-9 h-9 sm:w-8 sm:h-8 fill-primary-foreground" />
                     </motion.button>
                   )}
                 </div>
