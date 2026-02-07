@@ -43,7 +43,7 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
   const GAME_WIDTH = 100; // percentage
   const GAME_HEIGHT = 100; // percentage
   const PLAYER_SIZE = isMobile ? 3.2 : 2.6; // percentage
-  const PROJECTILE_SIZE = isMobile ? 2.4 : 2.7; // percentage
+  const PROJECTILE_SIZE = isMobile ? 1.8 : 2.7; // percentage
   const SURVIVAL_TIME = 15; // seconds
   const ENDGAME_DURATION_MS = 5000;
   const MAX_LIVES = 3;
@@ -234,7 +234,7 @@ const BulletHellGame = ({ onComplete }: BulletHellGameProps) => {
 
       const delta = Math.min((now - lastFrameTimeRef.current) / 16.67, 2);
       lastFrameTimeRef.current = now;
-      const speedMultiplier = (isMobile ? 0.85 : 1) * delta;
+      const speedMultiplier = (isMobile ? 1.25 : 1) * delta;
 
       // Update player position smoothly
       setPlayer(prev => {
