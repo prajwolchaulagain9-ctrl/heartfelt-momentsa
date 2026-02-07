@@ -1,61 +1,28 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Heart, Quote, ArrowRight } from "lucide-react";
-import FloatingHearts from "@/components/FloatingHearts";
-import RomanticGifBackdrop from "@/components/RomanticGifBackdrop";
-import ParticleField from "@/components/ParticleField";
-import InteractiveGlow from "@/components/InteractiveGlow";
-import DepthOfFieldOverlay from "@/components/DepthOfFieldOverlay";
+import { Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Feelings = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="min-h-screen bg-gradient-dreamy flex items-center justify-center px-4 relative overflow-hidden">
-      <FloatingHearts />
-      <ParticleField />
-      <InteractiveGlow color="rgba(255,210,220,0.35)" intensity={1} />
-      <DepthOfFieldOverlay />
-      <RomanticGifBackdrop
-        src="https://media.giphy.com/media/3oz8xIsloV7zOmt81G/giphy.gif"
-        opacity={0.24}
-        blur={2}
-        overlayColor="linear-gradient(180deg, rgba(255,210,220,0.25), rgba(255,240,230,0.15))"
-      />
+    <main className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50 flex items-center justify-center px-4">
 
-      {/* Soft glowing background */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-b from-rose-light/20 via-transparent to-gold-light/10"
-        animate={{ opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      <div className="text-center z-10 w-full">
-        <div className="container max-w-3xl mx-auto py-12 sm:py-16">
-        {/* Quote icon */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, type: "spring" }}
-          className="mb-8"
-        >
-          <Quote className="w-12 h-12 text-gold mx-auto rotate-180" />
-        </motion.div>
-
+      <div className="text-center z-10 w-full bg-white/60 backdrop-blur-sm rounded-3xl shadow-xl p-8 max-w-3xl mx-auto">
         {/* Main quote */}
         <motion.blockquote
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif italic text-foreground leading-relaxed mb-6"
+          transition={{ duration: 0.6 }}
+          className="text-2xl sm:text-3xl md:text-4xl font-serif italic text-slate-700 leading-relaxed mb-6"
         >
           In a world full of temporary things,{" "}
           <motion.span 
-            className="text-gradient-romantic font-semibold not-italic"
+            className="text-rose-600 font-semibold not-italic"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
           >
             you are my forever
           </motion.span>
@@ -65,33 +32,27 @@ const Feelings = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.8 }}
-          className="text-lg md:text-xl font-serif text-foreground mb-4"
-        >
+          transition={{ delay: 1, duration: 0.6 }}
+          className="text-lg md:text-xl text-slate-600 mb-6">
           My heart knew you before my eyes ever saw you.
         </motion.p>
 
-        {/* Heartbeat animation */}
+        {/* Heart icon */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.4 }}
-          className="flex justify-center my-10"
+          transition={{ delay: 1.5 }}
+          className="flex justify-center my-8"
         >
-          <motion.div
-            animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <Heart className="w-16 h-16 text-primary fill-primary drop-shadow-lg" />
-          </motion.div>
+          <Heart className="w-12 h-12 text-rose-500 fill-rose-500" />
         </motion.div>
 
         {/* Teaser text */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 3, duration: 0.8 }}
-          className="text-sm sm:text-base text-muted-foreground mb-8"
+          transition={{ delay: 2, duration: 0.6 }}
+          className="text-slate-600 mb-6"
         >
           And now, there's something I've been meaning to ask you...
         </motion.p>
@@ -100,24 +61,17 @@ const Feelings = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.5, duration: 0.5 }}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          transition={{ delay: 2.5, duration: 0.5 }}
         >
-          <Button variant="romantic" size="xl" onClick={() => navigate("/question")}>
+          <Button size="lg" variant="romantic" onClick={() => navigate("/question")}>
             I'm Ready
-            <motion.span
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <ArrowRight className="w-5 h-5" />
-            </motion.span>
+            <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </motion.div>
-        </div>
       </div>
     </main>
   );
 };
 
 export default Feelings;
+;

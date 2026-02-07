@@ -331,19 +331,19 @@ const Question = () => {
 
               {/* The question */}
               <motion.h1
-                className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-gradient-romantic mb-6 leading-tight"
+                className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-gradient-romantic mb-6 leading-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
               >
-                Will You Be
+                Mrs. Shyness Final Boss,
                 <br />
                 <motion.span 
                   className="italic"
                   animate={{ scale: [1, 1.02, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  My Valentine?
+                  will you be my Valentine?
                 </motion.span>
               </motion.h1>
 
