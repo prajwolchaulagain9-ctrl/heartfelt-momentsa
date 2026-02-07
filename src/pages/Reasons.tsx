@@ -41,20 +41,17 @@ const Reasons = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev < reasons.length - 1) {
-          return prev + 1;
-        } else {
-          clearInterval(timer);
-          return prev;
-        }
-      });
-    }, 3000);
+  const handleNext = () => {
+    if (currentIndex < reasons.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
 
-    return () => clearInterval(timer);
-  }, []);
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
 
   const currentReason = reasons[currentIndex];
   const Icon = currentReason.icon;
@@ -124,6 +121,36 @@ const Reasons = () => {
             )}
           </motion.div>
         </AnimatePresence>
+
+        {/* Navigation buttons */}
+        {!isLast && (
+          <motion.div
+            className="mt-10 flex items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <Button 
+              variant="secondary" 
+              size="lg" 
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+            >
+              ← Previous
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              {currentIndex + 1} / {reasons.length}
+            </span>
+            <Button 
+              variant="romantic" 
+              size="lg" 
+              onClick={handleNext}
+            >
+              Next →
+            </Button>
+          </motion.div>
+        )}
+
         {isLast && (
           <motion.div
             className="mt-10 bg-white/70 backdrop-blur-sm rounded-2xl shadow-romantic px-6 py-5 border border-white/60"
