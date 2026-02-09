@@ -64,7 +64,7 @@ const Reasons = () => {
       <CinematicLightRays />
       <InteractiveGlow color="rgba(255,200,210,0.4)" intensity={1.1} />
       <RomanticGifBackdrop
-        src="https://media.giphy.com/media/OkJat1YNdoD3W/giphy.gif"
+        src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyM2FqdjV6MGpybDd5bnh3c21nZ25yc2JweHNsbXhoOTlhaTFkZmRqNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HSCZMUa1ao17h7l5mg/giphy.gif"
         opacity={0.22}
         blur={1}
         overlayColor="linear-gradient(160deg, rgba(255,200,210,0.35), rgba(255,240,230,0.2))"
