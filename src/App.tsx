@@ -11,28 +11,76 @@ import Question from "./pages/Question";
 import NotFound from "./pages/NotFound";
 import BackgroundMusic from "./components/BackgroundMusic";
 import CursorTrail from "./components/CursorTrail";
+import PinGuard from "./components/PinGuard";
+import PinGate from "./pages/PinGate";
+import { PinProvider } from "./context/PinContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BackgroundMusic />
-      <CursorTrail />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/begin" element={<Begin />} />
-          <Route path="/reasons" element={<Reasons />} />
-          <Route path="/feelings" element={<Feelings />} />
-          <Route path="/question" element={<Question />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <PinProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BackgroundMusic />
+        <CursorTrail />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/pin" element={<PinGate />} />
+            <Route
+              path="/"
+              element={
+                <PinGuard>
+                  <Welcome />
+                </PinGuard>
+              }
+            />
+            <Route
+              path="/begin"
+              element={
+                <PinGuard>
+                  <Begin />
+                </PinGuard>
+              }
+            />
+            <Route
+              path="/reasons"
+              element={
+                <PinGuard>
+                  <Reasons />
+                </PinGuard>
+              }
+            />
+            <Route
+              path="/feelings"
+              element={
+                <PinGuard>
+                  <Feelings />
+                </PinGuard>
+              }
+            />
+            <Route
+              path="/question"
+              element={
+                <PinGuard>
+                  <Question />
+                </PinGuard>
+              }
+            />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route
+              path="*"
+              element={
+                <PinGuard>
+                  <NotFound />
+                </PinGuard>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </PinProvider>
   </QueryClientProvider>
 );
 

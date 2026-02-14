@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { Heart, Sparkles, PartyPopper } from "lucide-react";
 import FloatingHearts from "@/components/FloatingHearts";
 import CelebrationEffect from "@/components/CelebrationEffect";
@@ -12,10 +11,13 @@ import InteractiveGlow from "@/components/InteractiveGlow";
 import DepthOfFieldOverlay from "@/components/DepthOfFieldOverlay";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { usePin } from "@/context/PinContext";
+import { getPinContent } from "@/content/pinContent";
 
 const Question = () => {
   const isMobile = useIsMobile();
-  const navigate = useNavigate();
+  const { profile } = usePin();
+  const pinContent = getPinContent(profile);
   const [answer, setAnswer] = useState<"yes" | null>(null);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [noAttempts, setNoAttempts] = useState(0);
@@ -148,7 +150,10 @@ const Question = () => {
         <div className="container max-w-2xl mx-auto py-12 sm:py-16">
         <AnimatePresence mode="wait">
           {showPhotoShowcase ? (
-            <PhotoShowcase onComplete={handlePhotoShowcaseComplete} />
+            <PhotoShowcase
+              onComplete={handlePhotoShowcaseComplete}
+              photos={pinContent.photos}
+            />
           ) : showBulletHell ? (
             <BulletHellGame onComplete={handleBulletHellComplete} />
           ) : !gameComplete ? (
@@ -336,14 +341,18 @@ const Question = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
               >
-                Mrs. Shyness Final Boss,
-                <br />
-                <motion.span 
+                {pinContent.question.prefix ? (
+                  <>
+                    {pinContent.question.prefix}
+                    <br />
+                  </>
+                ) : null}
+                <motion.span
                   className="italic"
                   animate={{ scale: [1, 1.02, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  will you be my Valentine?
+                  {pinContent.question.highlight}
                 </motion.span>
               </motion.h1>
 
