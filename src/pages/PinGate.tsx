@@ -7,7 +7,7 @@ import { usePin } from "@/context/PinContext";
 import type { PinProfile } from "@/content/pinContent";
 
 const pinMap: Record<string, PinProfile> = {
-  "1234": "default",
+  "7898": "default",
   "2345": "alt",
 };
 
